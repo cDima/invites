@@ -35,7 +35,7 @@ edit it, and push. It will be live at `https://cdima.github.io/invites/alex/`.
 ## Reference material
 - `reference/inspiration/`: the original Instagram reel (@webgency_invitations) that inspired
   the style, plus frame contact sheets. **Local only**: it's someone else's work, so it's
-  git-ignored and never pushed to the public repo. Back up this folder yourself (iCloud/Drive).
+  git-ignored and never pushed to the public repo. Backup copy: SD card `FlashCardML/invites-reference/`.
 - `reference/screenshots/`: how each of our invites looked when first published.
 - `reference/yulia-v1-guests-version.html`: the first version of Yulia's page, written for guests.
 
