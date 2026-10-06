@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Invite Openers</title>
+<meta name="theme-color" content="#0b0a0f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400&family=Fredoka:wght@600;700&family=Jost:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0b0a0f;--ink:#f1ece4;--dim:#9a94a6;--gold:#d6ab5f}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "Jost",system-ui,sans-serif}
+main{overflow-x:clip}
+.head{min-height:70vh;min-height:70svh;display:grid;place-content:center;text-align:center;padding:40px 20px}
+.head h1{font:400 clamp(44px,12vw,84px)/1 "Bodoni Moda",Georgia,serif;margin:0}
+.head h1 em{color:var(--gold)}
+.head p{color:var(--dim);margin-top:14px;max-width:26rem;margin-inline:auto}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:26px}
+nav a{color:var(--ink);text-decoration:none;border:1px solid rgba(214,171,95,.4);border-radius:999px;padding:9px 16px;font-size:15px}
+nav a:hover{background:rgba(214,171,95,.12)}
+.tag{padding:70px 20px 28px;text-align:center}
+.tag b{display:block;font:400 34px/1.1 "Bodoni Moda",Georgia,serif}
+.tag span{display:block;margin-top:6px;color:var(--dim);font-size:15px;letter-spacing:.04em}
+.tag code{display:inline-block;margin-top:12px;font:13px/1.4 ui-monospace,Menlo,monospace;color:var(--gold);background:#16141c;border-radius:8px;padding:8px 12px;max-width:100%;overflow-x:auto;white-space:nowrap}
+.end{padding:90px 20px 120px;text-align:center;color:var(--dim)}
+</style>
+</head>
+<body>
+<main>
+  <header class="head">
+    <h1>Invite <em>openers</em></h1>
+    <p>Six opening scenes for future invitations. Scroll through each one. Every scene takes a name and one short line.</p>
+    <nav><a href="#curtain">Curtain</a><a href="#stars">Stars</a><a href="#bloom">Bloom</a><a href="#popup">Pop-up</a><a href="#gift">Gift</a><a href="#ember">Ember</a></nav>
+  </header>
+
+  <div class="tag" id="curtain"><b>Curtain</b><span>concerts · shows · premieres</span><code>&lt;section data-opener="curtain" data-title="Sting" data-line="Friday · Benaroya Hall"&gt;</code></div>
+  <section data-opener="curtain" data-title="Sting" data-line="Friday · Benaroya Hall · 8 PM"></section>
+
+  <div class="tag" id="stars"><b>Stars</b><span>love · anniversaries · just because</span><code>&lt;section data-opener="stars" data-title="Yulia" data-line="…"&gt;</code></div>
+  <section data-opener="stars" data-title="Yulia" data-line="every star, a night with you"></section>
+
+  <div class="tag" id="bloom"><b>Bloom</b><span>anniversaries · Mother’s Day · weddings</span><code>&lt;section data-opener="bloom" data-palette="peony | rose | ivory"&gt;</code></div>
+  <section data-opener="bloom" data-palette="peony" data-title="Yulia" data-line="twelve years in bloom"></section>
+
+  <div class="tag" id="popup"><b>Pop-up</b><span>kids · family nights · holidays</span><code>&lt;section data-opener="popup" data-title="Michelle"&gt;</code></div>
+  <section data-opener="popup" data-title="Michelle" data-line="story time at 8"></section>
+
+  <div class="tag" id="gift"><b>Gift</b><span>birthdays · surprises</span><code>&lt;section data-opener="gift" data-color="#2bb3a6"&gt;</code></div>
+  <section data-opener="gift" data-title="Happy Birthday" data-line="you’re invited"></section>
+
+  <div class="tag" id="ember"><b>Ember</b><span>games · secrets · surprises</span><code>&lt;section data-opener="ember" data-title="Nicholas"&gt;</code></div>
+  <section data-opener="ember" data-title="Yulia" data-line="queen of my heart"></section>
+
+  <p class="end">Source: <code>openers/</code> in github.com/cDima/invites</p>
+</main>
+<script type="module">import { mountAll } from './kit.js'; mountAll();</script>
+</body>
+</html>

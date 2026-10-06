@@ -10,6 +10,18 @@ Animated, single-file invitation pages, hosted free on GitHub Pages from
 | `nicholas/index.html` | https://cdima.github.io/invites/nicholas/ | Nicholas: co-op gaming, Roblox / PlayStation / vibe coding |
 | `sting/index.html` | https://cdima.github.io/invites/sting/ | Yulia: Sting 3.0 at Benaroya Hall, Fri 9 Oct 2026 ("Shape of My Heart") |
 
+## Openers library (`openers/`)
+Six scroll-driven opening scenes with almost no words: **curtain** (concerts), **stars** (love),
+**bloom** (anniversaries, `data-palette="peony|rose|ivory"`), **popup** (kids), **gift** (birthdays),
+**ember** (games/secrets). Preview them all at https://cdima.github.io/invites/openers/.
+Drop one into any invite:
+```html
+<section data-opener="bloom" data-title="Yulia" data-line="twelve years in bloom" data-length="3"></section>
+<script type="module">import { mountAll } from '../openers/kit.js'; mountAll();</script>
+```
+Each opener is a module exporting `mount(stage, opts)` → `{ frame(p, t, dt) }`, where `p` is scroll progress 0–1.
+Test with `node tools/openers-shots.js http://localhost:8765/openers/ <outdir>` (serve the repo with `python3 -m http.server 8765`).
+
 ## Update or reuse an invite
 Each page has a `CONFIG` block at the top of its `<script>` (names, date, time, venue).
 Edit it, then:
