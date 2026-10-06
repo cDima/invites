@@ -8,6 +8,7 @@ Animated, single-file invitation pages, hosted free on GitHub Pages from
 | `index.html` | https://cdima.github.io/invites/ (also `/yulia/`) | Yulia: 12th anniversary dinner, The Barking Frog |
 | `michelle/index.html` | https://cdima.github.io/invites/michelle/ | Michelle (7): princess → queen, bedtime story |
 | `nicholas/index.html` | https://cdima.github.io/invites/nicholas/ | Nicholas: co-op gaming, Roblox / PlayStation / vibe coding |
+| `sting/index.html` | https://cdima.github.io/invites/sting/ | Yulia: Sting 3.0 at Benaroya Hall, Fri 9 Oct 2026 ("Shape of My Heart") |
 
 ## Update or reuse an invite
 Each page has a `CONFIG` block at the top of its `<script>` (names, date, time, venue).
@@ -47,3 +48,10 @@ node screenshot-flow.js file://$PWD/../michelle/index.html m '#clasp' '#hero:0.4
 pip install imageio-ffmpeg && python3 tile.py sheet.png m1.png m2.png m3.png
 ```
 `screenshot-flow.js` expects Google Chrome at `/Applications/Google Chrome.app`.
+
+## AI-rendered openings (Imagen + Veo → frame sequence)
+`tools/ai/gen.py` renders a still with Imagen and animates it with Veo (prompts in `tools/ai/*.txt`).
+`tools/ai/frames.sh clip.mp4 sting 96 720 [crop]` turns the clip into `sting/assets/frames/`, and the
+Sting card plays those frames as she rubs (it falls back to the code-drawn fire when there are none).
+The Google Cloud project `gen-lang-client-0972016419` returned 404 for Imagen on Vertex. Generating
+needs either Vertex model access on a billed project, or a Gemini API key exported as `GEMINI_API_KEY`.
