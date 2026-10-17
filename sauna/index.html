@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sauna Night</title>
+<meta name="theme-color" content="#1a0f08">
+<meta property="og:title" content="You’re invited: Sauna Night 🧖">
+<meta property="og:description" content="Open the door.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,500&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#1a0f08;--wood:#3a2314;--wood2:#4b2e1a;--ink:#fbefdc;--dim:#d3b28a;--amber:#ffb85c;--glow:#ff9d3c;--line:rgba(255,205,150,.22);
+  --serif:"Fraunces",Georgia,serif;--sans:"Outfit",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+body.loading{overflow:hidden}
+p,h1,h2,h3{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:60;pointer-events:none}
+#steam{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.2s}
+
+.loader{position:fixed;inset:0;z-index:70;display:grid;place-content:center;justify-items:center;gap:16px;background:var(--bg);transition:opacity .6s}
+.loader.done{opacity:0;pointer-events:none}
+.loader i{font-style:normal;font-size:44px;animation:rise 1.8s ease-in-out infinite}
+.loader b{display:block;width:140px;height:3px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+.loader b span{display:block;height:100%;width:0;background:var(--amber);transition:width .2s}
+@keyframes rise{0%{transform:translateY(8px);opacity:.4}50%{transform:translateY(-8px);opacity:1}100%{transform:translateY(8px);opacity:.4}}
+
+/* scroll-scrubbed door */
+.scrub{position:relative;height:520vh}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#24150b}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.hint{position:absolute;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 6svh);display:grid;justify-items:center;gap:6px;pointer-events:none;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.hint svg{width:30px;height:30px;animation:bob 1.4s ease-in-out infinite}
+.hint span{font:700 12px var(--sans);letter-spacing:.3em;text-transform:uppercase;opacity:.9}
+@keyframes bob{50%{transform:translateY(9px)}}
+.title{position:absolute;left:0;right:0;bottom:0;padding:34svh 24px calc(env(safe-area-inset-bottom,0px) + 8svh);text-align:center;opacity:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(26,12,4,.88) 0,rgba(26,12,4,.6) 45%,transparent)}
+.title small{display:block;font:700 13px var(--sans);letter-spacing:.34em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.title h1{font:800 clamp(54px,17vw,120px)/.92 var(--serif);letter-spacing:-.02em;color:#fff6e6;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.title p{margin-top:12px;font:italic 500 clamp(20px,5.6vw,28px) var(--serif);color:#f6dcb6}
+
+/* page */
+.page{position:relative;z-index:2;padding:12svh 0 14svh;background:
+  radial-gradient(90% 40% at 50% 0,rgba(255,157,60,.22),transparent 70%),
+  radial-gradient(70% 30% at 50% 100%,rgba(255,157,60,.12),transparent 70%),var(--bg)}
+.wrap{width:100%;max-width:34rem;margin-inline:auto;padding-inline:20px;display:grid;gap:22px}
+.eyebrow{text-align:center;font:700 12px var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--amber)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* fogged glass with details */
+.glass{position:relative;border-radius:26px;overflow:hidden;border:1.5px solid var(--line);box-shadow:0 30px 60px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.03);
+  background:repeating-linear-gradient(90deg,rgba(0,0,0,.0) 0 58px,rgba(0,0,0,.18) 58px 60px),linear-gradient(180deg,var(--wood2),var(--wood))}
+.rows{display:grid}
+.row{display:flex;align-items:center;gap:18px;padding:22px 24px}
+.row+.row{border-top:1px solid var(--line)}
+.row em{font-style:normal;font-size:38px;width:50px;text-align:center;flex:none}
+.row small{display:block;font:700 11px var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+.row strong{display:block;font:800 clamp(24px,7vw,31px)/1.15 var(--serif);color:var(--ink)}
+.row span{display:block;margin-top:2px;color:var(--dim);font-size:16px}
+#fog{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:crosshair;transition:opacity 1.1s}
+#fog.gone{opacity:0;pointer-events:none}
+.wipe{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);display:grid;justify-items:center;gap:8px;pointer-events:none;color:rgba(70,45,30,.78);font:700 13px var(--sans);letter-spacing:.3em;text-transform:uppercase;transition:opacity .4s}
+.wipe svg{width:54px;height:54px;animation:swipe 2.2s ease-in-out infinite}
+@keyframes swipe{0%,100%{transform:translateX(-26px) rotate(-12deg)}50%{transform:translateX(26px) rotate(12deg)}}
+
+/* thermometer */
+.thermo{padding:22px 24px;border-radius:26px;border:1.5px solid var(--line);background:rgba(58,35,20,.55)}
+.thermo-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.thermo-top small{font:700 11px var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+.thermo-top b{font:800 44px/1 var(--serif);color:var(--amber);font-variant-numeric:tabular-nums}
+.bar{height:14px;border-radius:14px;background:rgba(0,0,0,.4);overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.5)}
+.bar i{display:block;height:100%;width:0;border-radius:14px;background:linear-gradient(90deg,#ffd28a,#ff9d3c,#ff5a2a);box-shadow:0 0 18px rgba(255,140,60,.8)}
+
+/* rsvp */
+.rsvp{text-align:center;display:grid;gap:18px;padding-top:6px}
+.rsvp h2{font:800 clamp(34px,10vw,48px)/1.05 var(--serif)}
+.btns{display:flex;gap:14px;justify-content:center;align-items:center;min-height:84px}
+.btn{border:0;border-radius:999px;padding:18px 32px;cursor:pointer;font:800 clamp(20px,6vw,24px) var(--serif);-webkit-tap-highlight-color:transparent;transition:transform .15s,box-shadow .15s,left .28s cubic-bezier(.3,1.4,.5,1),top .28s cubic-bezier(.3,1.4,.5,1),background .3s}
+.yes{background:linear-gradient(180deg,#ffd28a,#ff9d3c);color:#3a1405;box-shadow:0 8px 0 #a8501a,0 16px 36px rgba(0,0,0,.45)}
+.yes:active{transform:translateY(6px);box-shadow:0 2px 0 #a8501a}
+.no{background:transparent;color:var(--ink);border:2px solid var(--line);font-size:clamp(18px,5vw,21px);padding:14px 26px;z-index:65;touch-action:manipulation}
+.no.fly{position:fixed;margin:0}
+.no.turned{background:linear-gradient(180deg,#ffd28a,#ff9d3c);color:#3a1405;border-color:transparent;box-shadow:0 8px 0 #a8501a,0 16px 36px rgba(0,0,0,.45)}
+.said .btns{display:none}
+.after{display:none;gap:10px}
+.said .after{display:grid}
+.after strong{font:800 clamp(30px,9vw,42px)/1.1 var(--serif);color:var(--amber)}
+.after p{color:var(--dim)}
+.after a{justify-self:center;margin-top:6px;color:#3a1405;background:var(--amber);text-decoration:none;font:700 17px var(--sans);padding:12px 24px;border-radius:999px}
+.foot{text-align:center;color:var(--dim);font:italic 500 18px var(--serif);margin-top:8px}
+@media (prefers-reduced-motion:reduce){.hint svg,.wipe svg,.loader i{animation:none}.reveal{transition:none}}
+</style>
+</head>
+<body class="loading">
+<canvas id="steam" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="loader" id="loader"><i>🧖</i><b><span id="bar"></span></b></div>
+
+<main>
+  <section class="scrub" id="scrub" aria-label="Opening door">
+    <div class="stick">
+      <canvas id="cv"></canvas>
+      <div class="title" id="title"><small id="hosts">Dmitry &amp; Yulia</small><h1>Sauna<br>night</h1><p>in our backyard</p></div>
+      <div class="hint" id="hint" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 13l7 7 7-7"/></svg>
+        <span>scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page">
+    <div class="wrap">
+      <p class="eyebrow reveal">You’re invited</p>
+
+      <div class="glass reveal" id="glass">
+        <div class="rows">
+          <div class="row" id="rowWhen"><em>🗓️</em><div><small>When</small><strong id="when"></strong><span id="whenSub"></span></div></div>
+          <div class="row"><em>🏡</em><div><small>Where</small><strong>Our house</strong><span>Sauna’s in the backyard</span></div></div>
+          <div class="row"><em>🧺</em><div><small>Bring</small><strong>A towel</strong><span>Swim shorts or swimsuit welcome. Bring your own.</span></div></div>
+        </div>
+        <canvas id="fog" aria-hidden="true"></canvas>
+        <div class="wipe" id="wipe" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5a1.5 1.5 0 0 1 3 0v5m0 0V4a1.5 1.5 0 0 1 3 0v7m0-3a1.5 1.5 0 0 1 3 0v6a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-3l-2-3a1.5 1.5 0 0 1 2.4-1.8L9 14"/></svg>
+          <span>wipe the steam</span>
+        </div>
+      </div>
+
+      <div class="thermo reveal" id="thermo">
+        <div class="thermo-top"><small>Heating up</small><b id="deg">20°C</b></div>
+        <div class="bar"><i id="fill"></i></div>
+      </div>
+
+      <div class="rsvp reveal" id="rsvp">
+        <h2>Are you in?</h2>
+        <div class="btns" id="btns">
+          <button class="btn yes" id="yes" type="button">Yes! 🔥</button>
+          <button class="btn no" id="no" type="button">No</button>
+        </div>
+        <div class="after" id="after"><strong>See you in the steam 🧖</strong><p id="afterP">Don’t forget your towel.</p><a id="reply" href="#" hidden>Tell us you’re coming</a></div>
+      </div>
+      <p class="foot reveal" id="foot"></p>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ===== CONFIG — edit these ===== */
+const CONFIG={
+  hosts:'Dmitry & Yulia',
+  date:'',                  // e.g. 'Saturday, Oct 24'  (leave empty to hide the When row)
+  time:'',                  // e.g. '6:00 PM'
+  reply:'',                 // optional: 'sms:+12065550123' or 'mailto:you@example.com'. Shown after they say yes.
+  frames:'assets/frames/'
+};
+/* =============================== */
+(()=>{
+'use strict';
+const $=s=>document.querySelector(s);
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const smooth=(a,b,v)=>{const t=clamp((v-a)/(b-a));return t*t*(3-2*t)};
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+$('#hosts').textContent=CONFIG.hosts;$('#foot').textContent=CONFIG.hosts;
+if(CONFIG.date||CONFIG.time){$('#when').textContent=CONFIG.date||CONFIG.time;$('#whenSub').textContent=CONFIG.date&&CONFIG.time?CONFIG.time:''}else $('#rowWhen').remove();
+document.title='Sauna night · '+CONFIG.hosts;
+
+/* ---------- scrubbed frames ---------- */
+const cv=$('#cv'),g=cv.getContext('2d'),title=$('#title'),hint=$('#hint'),scrub=$('#scrub');
+let frames=[],W=0,H=0,dpr=1,cur=0,lastIdx=-1;
+function size(){dpr=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;lastIdx=-1}
+addEventListener('resize',size);size();
+function draw(i){
+  const im=frames[i];if(!im||!im.complete||!im.naturalWidth)return;
+  g.setTransform(dpr,0,0,dpr,0,0);
+  const ar=im.naturalWidth/im.naturalHeight,sa=W/H;let w,h;
+  if(sa<=ar*1.15){if(sa>ar){w=W;h=W/ar}else{h=H;w=H*ar}}else{h=H;w=H*ar}
+  g.fillStyle='#24150b';g.fillRect(0,0,W,H);g.drawImage(im,(W-w)/2,(H-h)/2,w,h);
+}
+function progress(){const r=scrub.getBoundingClientRect(),t=r.height-innerHeight;return t>0?clamp(-r.top/t):0}
+const steamEl=$('#steam');let steamOn=false;
+function tick(){
+  const target=progress();cur+=(target-cur)*(reduced?1:.14);if(Math.abs(target-cur)<.0004)cur=target;
+  if(frames.length){const i=Math.round(clamp(cur/.88)*(frames.length-1));if(i!==lastIdx){draw(i);lastIdx=i}}
+  const s=smooth(.80,.96,cur);title.style.opacity=s;title.style.transform=`translateY(${(1-s)*24}px)`;
+  hint.style.opacity=1-smooth(0,.04,cur);
+  const on=cur>.9;if(on!==steamOn){steamOn=on;steamEl.style.opacity=on?1:0}
+  requestAnimationFrame(tick);
+}
+
+/* ---------- ambient steam (soft rising puffs) ---------- */
+const sg=steamEl.getContext('2d');let SW,SH;const puffs=[];
+function ssize(){SW=innerWidth;SH=innerHeight;const d=Math.min(devicePixelRatio||1,1.5);steamEl.width=SW*d;steamEl.height=SH*d;sg.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',ssize);ssize();
+const mkPuff=(y)=>({x:Math.random()*SW,y:y??SH+120,r:90+Math.random()*130,vy:-(.18+Math.random()*.32),vx:(Math.random()-.5)*.25,a:0,life:0,max:900+Math.random()*500,p:Math.random()*6});
+for(let i=0;i<9;i++){const p=mkPuff(Math.random()*SH);p.life=Math.random()*p.max*.6;puffs.push(p)}
+function steamTick(){
+  if(steamOn||puffs.some(p=>p.a>.01)){
+    sg.clearRect(0,0,SW,SH);
+    for(const p of puffs){p.life++;p.y+=p.vy;p.x+=p.vx+Math.sin(p.life*.01+p.p)*.25;p.r+=.07;
+      const t=p.life/p.max;p.a=Math.sin(Math.PI*clamp(t))*.11;
+      const gr=sg.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);gr.addColorStop(0,`rgba(255,240,225,${p.a})`);gr.addColorStop(1,'rgba(255,240,225,0)');
+      sg.fillStyle=gr;sg.fillRect(p.x-p.r,p.y-p.r,p.r*2,p.r*2);
+      if(p.life>p.max){Object.assign(p,mkPuff())}}
+  }
+  requestAnimationFrame(steamTick);
+}
+
+/* ---------- fogged glass (wipe with finger/mouse) ---------- */
+const fog=$('#fog'),fgc=fog.getContext('2d'),glass=$('#glass'),wipeHint=$('#wipe');
+let fw=0,fh=0,fd=1,fogDone=false,last=null,strokes=0,fogTimer=null;
+function paintFog(){
+  const r=glass.getBoundingClientRect();fd=Math.min(devicePixelRatio||1,2);fw=r.width;fh=r.height;fog.width=fw*fd;fog.height=fh*fd;
+  fgc.setTransform(fd,0,0,fd,0,0);fgc.globalCompositeOperation='source-over';
+  const gr=fgc.createLinearGradient(0,0,0,fh);gr.addColorStop(0,'rgba(236,224,212,.97)');gr.addColorStop(1,'rgba(214,198,184,.97)');
+  fgc.fillStyle=gr;fgc.fillRect(0,0,fw,fh);
+  // mist texture
+  for(let i=0;i<70;i++){const x=Math.random()*fw,y=Math.random()*fh,r=30+Math.random()*80,a=.05+Math.random()*.08,gg=fgc.createRadialGradient(x,y,0,x,y,r);
+    gg.addColorStop(0,`rgba(255,255,255,${a})`);gg.addColorStop(1,'rgba(255,255,255,0)');fgc.fillStyle=gg;fgc.fillRect(x-r,y-r,r*2,r*2)}
+  // condensation droplets
+  for(let i=0;i<90;i++){const x=Math.random()*fw,y=Math.random()*fh,r=1.5+Math.random()*4;
+    fgc.fillStyle='rgba(120,100,90,.16)';fgc.beginPath();fgc.arc(x+.8,y+1.2,r,0,7);fgc.fill();
+    fgc.fillStyle='rgba(255,255,255,.55)';fgc.beginPath();fgc.arc(x,y,r*.72,0,7);fgc.fill()}
+}
+function clearedRatio(){
+  const sw=48,sh=Math.max(8,Math.round(48*fh/fw)),t=document.createElement('canvas');t.width=sw;t.height=sh;const c=t.getContext('2d');
+  c.drawImage(fog,0,0,sw,sh);const d=c.getImageData(0,0,sw,sh).data;let n=0;for(let i=3;i<d.length;i+=4)if(d[i]<60)n++;return n/(sw*sh);
+}
+function finishFog(){if(fogDone)return;fogDone=true;fog.classList.add('gone');wipeHint.style.opacity=0;if(fogTimer)clearTimeout(fogTimer)}
+function wipeAt(x,y){
+  fgc.globalCompositeOperation='destination-out';fgc.lineCap='round';fgc.lineJoin='round';fgc.lineWidth=58;
+  fgc.beginPath();if(last){fgc.moveTo(last.x,last.y);fgc.lineTo(x,y)}else{fgc.moveTo(x,y);fgc.lineTo(x+.1,y)}fgc.stroke();last={x,y};
+  wipeHint.style.opacity=0;
+  if(++strokes%8===0&&clearedRatio()>.5)finishFog();
+}
+function pos(e){const r=fog.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+let down=false;
+fog.addEventListener('pointerdown',e=>{down=true;last=null;const p=pos(e);wipeAt(p.x,p.y)});
+fog.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'||down){const p=pos(e);wipeAt(p.x,p.y)}});
+addEventListener('pointerup',()=>{down=false;last=null});
+fog.addEventListener('pointerleave',()=>{last=null});
+let fogSeen=false;
+function startFog(){if(reduced){fog.classList.add('gone');wipeHint.style.display='none';fogDone=true;return}
+  paintFog();
+  new IntersectionObserver((es,o)=>{if(es[0].isIntersecting&&!fogSeen){fogSeen=true;
+    fogTimer=setTimeout(finishFog,9000); // heat does the work if nobody wipes
+    o.disconnect()}},{threshold:.6}).observe(glass);
+}
+
+/* ---------- thermometer ---------- */
+const deg=$('#deg'),fill=$('#fill');let thermoRun=false;
+function heat(){if(thermoRun)return;thermoRun=true;const t0=performance.now(),D=2600;
+  (function s(now){const k=clamp((now-t0)/D),e=1-Math.pow(1-k,3),v=Math.round(20+e*65);deg.textContent=v+'°C';fill.style.width=(e*100)+'%';if(k<1)requestAnimationFrame(s)})(t0)}
+
+/* ---------- reveals ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');if(e.target.id==='thermo')heat();io.unobserve(e.target)}}),{threshold:.3});
+document.querySelectorAll('.reveal').forEach((el,i)=>io.observe(el));
+
+/* ---------- puffs & drops (fx overlay) ---------- */
+const fx=$('#fx'),xg=fx.getContext('2d');const P=[];
+function xsize(){const d=Math.min(devicePixelRatio||1,2);fx.width=innerWidth*d;fx.height=innerHeight*d;xg.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',xsize);xsize();
+function burst(x,y){const n=reduced?10:46;
+  for(let i=0;i<n;i++){const a=-Math.PI/2+(Math.random()-.5)*2.4,sp=1+Math.random()*4.5;P.push({k:'p',x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:20+Math.random()*34,life:0,max:90+Math.random()*60,g:-.02})}
+  for(let i=0;i<(reduced?4:22);i++){const a=Math.random()*Math.PI*2,sp=3+Math.random()*7;P.push({k:'d',x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-4,r:2+Math.random()*3.5,life:0,max:70+Math.random()*40,g:.35})}}
+function xtick(){
+  xg.clearRect(0,0,innerWidth,innerHeight);
+  for(let i=P.length-1;i>=0;i--){const p=P[i];p.life++;p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.vx*=.985;const t=p.life/p.max;if(t>=1){P.splice(i,1);continue}
+    if(p.k==='p'){p.r+=.5;const a=(1-t)*.5,gr=xg.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);gr.addColorStop(0,`rgba(255,246,236,${a})`);gr.addColorStop(1,'rgba(255,246,236,0)');xg.fillStyle=gr;xg.fillRect(p.x-p.r,p.y-p.r,p.r*2,p.r*2)}
+    else{xg.fillStyle=`rgba(210,235,255,${(1-t)*.85})`;xg.beginPath();xg.arc(p.x,p.y,p.r,0,7);xg.fill()}}
+  requestAnimationFrame(xtick);
+}
+
+/* ---------- RSVP: the "No" runs away, then admits it's a Yes ---------- */
+const rsvp=$('#rsvp'),yes=$('#yes'),no=$('#no'),btns=$('#btns');
+const LINES=['No','Nope?','You sure?','Try again','Really?','Last chance…'];
+let dodges=0,said=false;
+function sayYes(from){
+  if(said)return;said=true;rsvp.classList.add('said');
+  const r=(from||yes).getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2);
+  try{localStorage.setItem('sauna-yes','1')}catch(e){}
+  if(navigator.vibrate)navigator.vibrate(40);
+  if(CONFIG.reply){const a=$('#reply');a.href=CONFIG.reply;a.hidden=false}
+}
+function dodge(){
+  dodges++;
+  if(dodges>=LINES.length){no.classList.add('turned');no.textContent='Fine, yes 🔥';no.style.left=no.style.top='';no.classList.remove('fly');return}
+  no.textContent=LINES[dodges];
+  yes.style.transform=`scale(${1+dodges*.09})`;
+  const bw=no.offsetWidth,bh=no.offsetHeight,m=14,yr=yes.getBoundingClientRect();
+  let x,y,tries=0;
+  do{x=m+Math.random()*(innerWidth-bw-2*m);y=m+Math.random()*(innerHeight-bh-2*m);tries++}
+  while(tries<30&&x<yr.right+10&&x+bw>yr.left-10&&y<yr.bottom+10&&y+bh>yr.top-10);
+  no.classList.add('fly');no.style.left=x+'px';no.style.top=y+'px';
+}
+const turned=()=>no.classList.contains('turned');
+no.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'&&!turned())dodge()});
+no.addEventListener('touchstart',e=>{if(!turned()){e.preventDefault();dodge()}},{passive:false});
+no.addEventListener('click',e=>{if(turned())sayYes(no);else dodge()});
+yes.addEventListener('click',()=>sayYes(yes));
+try{if(localStorage.getItem('sauna-yes'))sayYes(yes)}catch(e){}
+
+/* ---------- load ---------- */
+fetch(CONFIG.frames+'manifest.json').then(r=>r.json()).then(m=>{
+  let n=0;const bar=$('#bar');
+  for(let i=0;i<m.count;i++){const im=new Image();im.decoding='async';
+    im.onload=im.onerror=()=>{n++;bar.style.width=(n/m.count*100)+'%';if(i===0)draw(0);
+      if(n===m.count){size();lastIdx=-1;$('#loader').classList.add('done');document.body.classList.remove('loading')}};
+    im.src=CONFIG.frames+m.pattern.replace('%03d',String(i+1).padStart(3,'0'));frames.push(im)}
+}).catch(()=>{$('#loader').classList.add('done');document.body.classList.remove('loading')});
+addEventListener('load',startFog);
+if(document.readyState==='complete')startFog();
+requestAnimationFrame(tick);requestAnimationFrame(steamTick);requestAnimationFrame(xtick);
+})();
+</script>
+</body>
+</html>

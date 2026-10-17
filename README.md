@@ -10,6 +10,7 @@ Animated, single-file invitation pages, hosted free on GitHub Pages from
 | `nicholas/index.html` | https://cdima.github.io/invites/nicholas/ | Nicholas: co-op gaming, Roblox / PlayStation / vibe coding |
 | `sting/index.html` | https://cdima.github.io/invites/sting/ | Yulia: Sting 3.0 at Benaroya Hall, Fri 9 Oct 2026 ("Shape of My Heart") |
 | `vitaly/index.html` | https://cdima.github.io/invites/vitaly/ | Vitaly turns 25: scroll-scrubbed autumn leather card (96 frames of an AI video) → house party, Sun 18 Oct 2026 |
+| `sauna/index.html` | https://cdima.github.io/invites/sauna/ | Backyard sauna night (for friends): scroll-scrubbed wooden door → steam → sauna, wipe-the-fog details, dodging "No" button |
 
 ## Openers library (`openers/`)
 Six scroll-driven opening scenes with almost no words: **curtain** (concerts), **stars** (love),
