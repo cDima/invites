@@ -11,7 +11,7 @@ Animated, single-file invitation pages, hosted free on GitHub Pages from
 | `sting/index.html` | https://cdima.github.io/invites/sting/ | Yulia: Sting 3.0 at Benaroya Hall, Fri 9 Oct 2026 ("Shape of My Heart") |
 | `vitaly/index.html` | https://cdima.github.io/invites/vitaly/ | Vitaly turns 25: scroll-scrubbed autumn leather card (96 frames of an AI video) → house party, Sun 18 Oct 2026 |
 | `sauna/index.html` | https://cdima.github.io/invites/sauna/ | Backyard sauna night (for friends): scroll-scrubbed wooden door → steam → sauna, wipe-the-fog details, dodging "No" button |
-| `banya/index.html` | https://cdima.github.io/invites/banya/ | Russian: special invite for Boris & Lena Press, free entry, daily 16:00. Three.js/WebGL droplet shader, shake, dial, calendar that becomes "every day". Set `address` in CONFIG |
+| `banya/index.html` | https://cdima.github.io/invites/banya/ | Russian: special invite for Boris & Lena Press, free entry, daily 16:00. Three.js/WebGL droplet shader, shake, dial, calendar that becomes "every day". Shake releases WebGL steam, tilt steers the drops; address is just "во двор" |
 
 ## Openers library (`openers/`)
 Six scroll-driven opening scenes with almost no words: **curtain** (concerts), **stars** (love),
