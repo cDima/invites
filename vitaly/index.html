@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Vitaly turns 25</title>
+<meta name="theme-color" content="#120d0a">
+<meta property="og:title" content="Vitaly turns 25 🍂">
+<meta property="og:description" content="Scroll to open.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900;1,9..144,600&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#120d0a;--ink:#fff4e0;--dim:#d9b98a;--gold:#f4c25b;--amber:#e8832a;--rust:#b4401f;--wine:#7a1f2b;
+  --serif:"Fraunces",Georgia,serif;--sans:"Outfit",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 18px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+body.loading{overflow:hidden}
+p,h1,h2{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* leaves layer */
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:60;pointer-events:none}
+
+/* loader */
+.loader{position:fixed;inset:0;z-index:70;display:grid;place-content:center;justify-items:center;gap:16px;background:var(--bg);transition:opacity .6s}
+.loader.done{opacity:0;pointer-events:none}
+.loader i{font-style:normal;font-size:44px;animation:spin 1.6s ease-in-out infinite}
+.loader b{display:block;width:140px;height:3px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+.loader b span{display:block;height:100%;width:0;background:var(--gold);transition:width .2s}
+@keyframes spin{0%{transform:rotate(-20deg)}50%{transform:rotate(20deg) translateY(8px)}100%{transform:rotate(-20deg)}}
+
+/* scroll-scrubbed card */
+.scrub{position:relative;height:520vh}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.hint{position:absolute;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 7svh);display:grid;justify-items:center;gap:6px;pointer-events:none;transition:opacity .4s;color:var(--ink)}
+.hint svg{width:30px;height:30px;animation:bob 1.4s ease-in-out infinite}
+.hint span{font:700 12px var(--sans);letter-spacing:.3em;text-transform:uppercase;opacity:.8}
+@keyframes bob{50%{transform:translateY(9px)}}
+.big25{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;pointer-events:none;opacity:0;text-align:center;text-shadow:0 0 50px rgba(255,236,190,.7)}
+.big25 h1{font:900 clamp(120px,42vw,300px)/.85 var(--serif);color:#7a1f0a;letter-spacing:-.04em}
+.big25 p{margin-top:10px;font:italic 600 clamp(26px,8vw,48px) var(--serif);color:#5a1608}
+
+/* the invite itself */
+.card{position:relative;z-index:2;background:linear-gradient(#e8832a 0,#b4401f 30%,#7a1f2b 70%,#120d0a 100%);padding:0 0 12svh}
+.tape{overflow:hidden;white-space:nowrap;background:var(--gold);color:#3a1405;transform:rotate(-2.2deg) scale(1.04);margin:0 0 64px;border-block:3px solid #3a1405}
+.tape div{display:inline-block;padding:10px 0;font:900 22px var(--serif);letter-spacing:.04em;animation:tape 18s linear infinite}
+@keyframes tape{to{transform:translateX(-50%)}}
+.wrap{width:100%;max-width:34rem;margin-inline:auto;padding-inline:20px;display:grid;gap:18px}
+.tile{display:flex;align-items:center;gap:18px;padding:20px 22px;border-radius:22px;background:rgba(18,13,10,.42);border:1.5px solid rgba(255,230,180,.28);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:0;transform:translateY(34px) rotate(var(--r,0deg));transition:opacity .7s,transform .7s cubic-bezier(.2,.9,.3,1.2)}
+.tile.in{opacity:1;transform:rotate(var(--r,0deg))}
+.tile:nth-child(1){--r:-1.2deg}.tile:nth-child(2){--r:1deg}.tile:nth-child(3){--r:-.8deg}
+.tile em{font-style:normal;font-size:40px;line-height:1;flex:none;width:52px;text-align:center}
+.tile small{display:block;font:700 11px var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+.tile strong{display:block;font:900 clamp(26px,7.5vw,34px)/1.1 var(--serif);color:var(--ink)}
+.yes{margin-top:22px;position:relative;width:100%;padding:22px 18px;border:0;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#ffe29a,#f4c25b);color:#3a1405;
+  font:900 clamp(22px,6.5vw,28px) var(--serif);box-shadow:0 10px 0 #a8651a,0 18px 40px rgba(0,0,0,.45);transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent;animation:pulse 2.2s ease-in-out infinite}
+.yes:active{transform:translateY(7px);box-shadow:0 3px 0 #a8651a,0 8px 20px rgba(0,0,0,.45);animation:none}
+.yes.said{animation:none;background:linear-gradient(180deg,#fff6e4,#ffe0a8);cursor:default}
+@keyframes pulse{50%{transform:scale(1.035)}}
+.foot{margin-top:46px;text-align:center;font:italic 600 20px var(--serif);color:var(--dim)}
+@media (prefers-reduced-motion:reduce){.tape div,.yes,.hint svg,.loader i{animation:none}.tile{transition:none}}
+</style>
+</head>
+<body class="loading">
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="loader" id="loader"><i>🍂</i><b><span id="bar"></span></b></div>
+
+<main>
+  <section class="scrub" id="scrub" aria-label="Opening card">
+    <div class="stick">
+      <canvas id="cv"></canvas>
+      <div class="big25" id="big"><h1 id="age">25</h1><p id="who">Vitaly</p></div>
+      <div class="hint" id="hint" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 13l7 7 7-7"/></svg>
+        <span>scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="tape" aria-hidden="true"><div id="tape"></div></div>
+    <div class="wrap">
+      <div class="tile"><em>🗓️</em><div><small>When</small><strong id="when">Sunday, Oct 18</strong></div></div>
+      <div class="tile"><em>🏠</em><div><small>Where</small><strong id="where">Vitaly’s house</strong></div></div>
+      <div class="tile"><em>👟</em><div><small>Wear</small><strong id="dress">Casual &amp; light</strong></div></div>
+      <button class="yes" id="yes" type="button">Yes, I’ll be there! 🍂</button>
+      <p class="foot" id="foot" hidden>See you there 🧡</p>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ===== CONFIG — edit these ===== */
+const CONFIG={
+  name:'Vitaly',
+  age:25,
+  when:'Sunday, Oct 18',
+  time:'',                 // e.g. '7:00 PM' — leave empty to hide
+  where:'Vitaly’s house',
+  dress:'Casual & light',
+  frames:'assets/frames/'
+};
+/* =============================== */
+(()=>{
+'use strict';
+const $=s=>document.querySelector(s);
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const smooth=(a,b,v)=>{const t=clamp((v-a)/(b-a));return t*t*(3-2*t)};
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+$('#age').textContent=CONFIG.age;$('#who').textContent=CONFIG.name;
+$('#when').textContent=CONFIG.when+(CONFIG.time?' · '+CONFIG.time:'');
+$('#where').textContent=CONFIG.where;$('#dress').textContent=CONFIG.dress;
+document.title=`${CONFIG.name} turns ${CONFIG.age}`;
+const word=`HAPPY BIRTHDAY ${CONFIG.name.toUpperCase()} 🍁 ${CONFIG.age} 🍂 `;
+$('#tape').textContent=word.repeat(8);
+
+/* ---------- frames ---------- */
+const cv=$('#cv'),g=cv.getContext('2d'),big=$('#big'),hint=$('#hint'),scrub=$('#scrub');
+let frames=[],W=0,H=0,dpr=1,target=0,cur=0,lastIdx=-1;
+function size(){dpr=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;lastIdx=-1}
+addEventListener('resize',size);size();
+function draw(i){
+  const im=frames[i];if(!im||!im.complete)return;
+  g.setTransform(dpr,0,0,dpr,0,0);
+  // portrait screens: cover the frame; wide screens: contain it on the dark backdrop
+  const ar=im.naturalWidth/im.naturalHeight,sa=W/H;
+  const cover=sa<=ar*1.15;
+  let w,h;
+  if(cover){if(sa>ar){w=W;h=W/ar}else{h=H;w=H*ar}}else{h=H;w=H*ar}
+  g.fillStyle='#120d0a';g.fillRect(0,0,W,H);
+  g.drawImage(im,(W-w)/2,(H-h)/2,w,h);
+}
+function progress(){
+  const r=scrub.getBoundingClientRect(),total=r.height-innerHeight;
+  return total>0?clamp(-r.top/total):0;
+}
+function tick(){
+  target=progress();
+  cur+=(target-cur)*(reduced?1:.14);
+  if(Math.abs(target-cur)<.0004)cur=target;
+  if(frames.length){
+    // frames play over the first 88% of scroll; the rest holds on the glow while "25" lands
+    const f=clamp(cur/.88),i=Math.round(f*(frames.length-1));
+    if(i!==lastIdx){draw(i);lastIdx=i}
+  }
+  const s=smooth(.80,.97,cur);
+  big.style.opacity=s;big.style.transform=`scale(${.82+.18*s})`;
+  hint.style.opacity=1-smooth(0,.05,cur);
+  requestAnimationFrame(tick);
+}
+
+/* ---------- leaves ---------- */
+const fx=$('#fx'),fg=fx.getContext('2d');
+const LEAVES=['🍂','🍁','🍂','🍁'];const P=[];
+function fsize(){const d=Math.min(devicePixelRatio||1,2);fx.width=innerWidth*d;fx.height=innerHeight*d;fg.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',fsize);fsize();
+function burst(x,y,n){if(reduced)n=Math.ceil(n/4);for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,sp=3+Math.random()*9;
+  P.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-6,r:Math.random()*6,vr:(Math.random()-.5)*.3,s:20+Math.random()*26,c:LEAVES[(Math.random()*4)|0],life:0,max:110+Math.random()*80,g:.28})}}
+function drift(){ // gentle leaves falling while in the invite section
+  if(P.length<26&&Math.random()<.18)P.push({x:Math.random()*innerWidth,y:-30,vx:(Math.random()-.5)*1.2,vy:1+Math.random()*1.6,r:Math.random()*6,vr:(Math.random()-.5)*.06,s:18+Math.random()*18,c:LEAVES[(Math.random()*4)|0],life:0,max:600,g:0,sway:Math.random()*6})}
+function fxTick(){
+  fg.clearRect(0,0,innerWidth,innerHeight);
+  if(cur>.9&&!reduced)drift();
+  for(let i=P.length-1;i>=0;i--){const p=P[i];p.life++;p.vy+=p.g;p.x+=p.vx+(p.sway!=null?Math.sin(p.life*.04+p.sway)*.8:0);p.y+=p.vy;p.r+=p.vr;
+    if(p.life>p.max||p.y>innerHeight+40){P.splice(i,1);continue}
+    fg.globalAlpha=clamp((p.max-p.life)/30);fg.save();fg.translate(p.x,p.y);fg.rotate(p.r);fg.font=`${p.s}px serif`;fg.textAlign='center';fg.textBaseline='middle';fg.fillText(p.c,0,0);fg.restore()}
+  fg.globalAlpha=1;requestAnimationFrame(fxTick);
+}
+
+/* ---------- tiles reveal ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.35});
+document.querySelectorAll('.tile').forEach((t,i)=>{t.style.transitionDelay=(i*90)+'ms';io.observe(t)});
+
+/* ---------- RSVP (just a happy yes) ---------- */
+const yes=$('#yes'),foot=$('#foot');
+function said(){yes.classList.add('said');yes.textContent='You’re in! 🧡';foot.hidden=false}
+try{if(localStorage.getItem('vitaly25-yes'))said()}catch(e){}
+yes.addEventListener('click',e=>{
+  const r=yes.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,70);
+  if(yes.classList.contains('said'))return;
+  said();try{localStorage.setItem('vitaly25-yes','1')}catch(e){}
+  if(navigator.vibrate)navigator.vibrate(40);
+});
+
+/* ---------- load ---------- */
+fetch(CONFIG.frames+'manifest.json').then(r=>r.json()).then(m=>{
+  let n=0;const bar=$('#bar');
+  for(let i=0;i<m.count;i++){
+    const im=new Image();im.decoding='async';
+    im.onload=im.onerror=()=>{n++;bar.style.width=(n/m.count*100)+'%';if(i===0)draw(0);
+      if(n===m.count){size();lastIdx=-1;$('#loader').classList.add('done');document.body.classList.remove('loading')}};
+    im.src=CONFIG.frames+m.pattern.replace('%03d',String(i+1).padStart(3,'0'));
+    frames.push(im);
+  }
+}).catch(()=>{$('#loader').classList.add('done');document.body.classList.remove('loading')});
+requestAnimationFrame(tick);requestAnimationFrame(fxTick);
+})();
+</script>
+</body>
+</html>

@@ -9,6 +9,7 @@ Animated, single-file invitation pages, hosted free on GitHub Pages from
 | `michelle/index.html` | https://cdima.github.io/invites/michelle/ | Michelle (7): princess → queen, bedtime story |
 | `nicholas/index.html` | https://cdima.github.io/invites/nicholas/ | Nicholas: co-op gaming, Roblox / PlayStation / vibe coding |
 | `sting/index.html` | https://cdima.github.io/invites/sting/ | Yulia: Sting 3.0 at Benaroya Hall, Fri 9 Oct 2026 ("Shape of My Heart") |
+| `vitaly/index.html` | https://cdima.github.io/invites/vitaly/ | Vitaly turns 25: scroll-scrubbed autumn leather card (96 frames of an AI video) → house party, Sun 18 Oct 2026 |
 
 ## Openers library (`openers/`)
 Six scroll-driven opening scenes with almost no words: **curtain** (concerts), **stars** (love),
