@@ -5,7 +5,7 @@ Animated, single-file invitation pages, hosted free on GitHub Pages from
 
 | Page | Live link | Theme |
 |---|---|---|
-| `index.html` | https://cdima.github.io/invites/ (also `/yulia/`) | Yulia: 12th anniversary dinner, The Barking Frog |
+| `yulia/index.html` | https://cdima.github.io/invites/yulia/ | Yulia: 12th anniversary dinner, The Barking Frog |
 | `michelle/index.html` | https://cdima.github.io/invites/michelle/ | Michelle (7): princess → queen, bedtime story |
 | `nicholas/index.html` | https://cdima.github.io/invites/nicholas/ | Nicholas: co-op gaming, Roblox / PlayStation / vibe coding |
 | `sting/index.html` | https://cdima.github.io/invites/sting/ | Yulia: Sting 3.0 at Benaroya Hall, Fri 9 Oct 2026 ("Shape of My Heart") |
